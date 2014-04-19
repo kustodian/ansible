@@ -87,7 +87,7 @@ def main():
 
     # the command module is the one ansible module that does not take key=value args
     # hence don't copy this one if you are looking to build others!
-    module = CommandModule(argument_spec=dict())
+    module = CommandModule(argument_spec=dict(), set_default_lang=False)
 
     shell = module.params['shell']
     chdir = module.params['chdir']
