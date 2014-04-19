@@ -164,7 +164,7 @@ class AnsibleModule(object):
 
     def __init__(self, argument_spec, bypass_checks=False, no_log=False,
         check_invalid_arguments=True, mutually_exclusive=None, required_together=None,
-        required_one_of=None, add_file_common_args=False, supports_check_mode=False):
+        required_one_of=None, add_file_common_args=False, supports_check_mode=False, set_default_lang=True):
 
         '''
         common code for quickly building an ansible module in Python
@@ -176,6 +176,7 @@ class AnsibleModule(object):
         self.supports_check_mode = supports_check_mode
         self.check_mode = False
         self.no_log = no_log
+        self.set_default_lang = set_default_lang
         
         self.aliases = {}
         
@@ -184,7 +185,8 @@ class AnsibleModule(object):
                 if k not in self.argument_spec:
                     self.argument_spec[k] = v
 
-        os.environ['LANG'] = MODULE_LANG
+        if set_default_lang or not os.environ['LANG']:
+            os.environ['LANG'] = MODULE_LANG
         (self.params, self.args) = self._load_params()
 
         self._legal_inputs = [ 'CHECKMODE', 'NO_LOG' ]
