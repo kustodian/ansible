@@ -726,7 +726,7 @@ def main():
                 changed = True
 
     # no changes to env/job, but existing crontab needs a terminating newline
-    if not changed:
+    if do_install and not changed:
         if not (crontab.existing.endswith('\r') or crontab.existing.endswith('\n')):
             changed = True
 
